@@ -1,7 +1,7 @@
-package com.Test.demo.aplication.usecase;
+package com.Test.demo.application.usecase;
 
-import com.Test.demo.aplication.port.in.CoderInPort;
-import com.Test.demo.aplication.port.out.CoderOutPort;
+import com.Test.demo.application.port.in.CoderInPort;
+import com.Test.demo.application.port.out.CoderOutPort;
 import com.Test.demo.domain.Coder;
 import org.springframework.stereotype.Service;
 
@@ -20,8 +20,6 @@ public class CoderUseCase implements CoderInPort {
 
     @Override
     public Coder save (Coder coder){
-
-        
 
         return coderOutPort.save(coder);
 
