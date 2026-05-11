@@ -19,10 +19,11 @@ public class CoderUseCase implements CoderInPort {
     }
 
     @Override
-    public boolean save (Coder coder){
+    public Coder save (Coder coder){
 
-        coderOutPort.save(coder);
-        return true;
+        
+
+        return coderOutPort.save(coder);
 
     }
 
@@ -37,6 +38,23 @@ public class CoderUseCase implements CoderInPort {
     public boolean delete (Long id){
 
         return coderOutPort.delete(id);
+
+    }
+
+    @Override
+    public Coder edit (Long id, Coder coder){
+
+        Coder exist = coderOutPort.getById(id);
+
+        if (exist != null){
+
+            coder.setId(id);
+
+            return coderOutPort.save(coder);
+
+        }
+
+        return null;
 
     }
 
