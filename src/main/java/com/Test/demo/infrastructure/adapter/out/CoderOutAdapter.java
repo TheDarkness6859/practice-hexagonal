@@ -2,29 +2,32 @@ package com.Test.demo.infrastructure.adapter.out;
 
 import com.Test.demo.application.port.out.CoderOutPort;
 import com.Test.demo.domain.Coder;
+import com.Test.demo.infrastructure.adapter.persistance.DatabaseRepo;
 import com.Test.demo.infrastructure.entity.CoderEntity;
 import com.Test.demo.infrastructure.mapper.CoderMapper;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Repository
 public class CoderOutAdapter implements CoderOutPort {
 
-    private final List<CoderEntity> db = new ArrayList<>();
+    private final DatabaseRepo repo;
     private final CoderMapper mapper;
 
-    public CoderOutAdapter (CoderMapper mapper){
+    public CoderOutAdapter (CoderMapper mapper, DatabaseRepo repo){
 
         this.mapper = mapper;
+        this.repo = repo;
 
     }
 
     @Override
     public List<Coder> getAll() {
 
-        return db.stream()
+        return repo.findAll()
+                .stream()
                 .map(mapper::toDomain)
                 .toList()
         ;
@@ -33,9 +36,9 @@ public class CoderOutAdapter implements CoderOutPort {
     }
 
     @Override
-    public Coder getById (Long id){
+    public Coder getById (UUID id){
 
-        return db.stream()
+        return repo.findById(id).stream()
                 .filter(e -> e.getId().equals(id))
                 .findFirst()
                 .map(mapper::toDomain)
@@ -49,17 +52,23 @@ public class CoderOutAdapter implements CoderOutPort {
 
         CoderEntity entity = mapper.toEntity(coder);
 
-        db.removeIf(e -> e.getId().equals(entity.getId()));
-        db.add(entity);
+        CoderEntity savedEntity = repo.save(entity);
 
-        return mapper.toDomain(entity);
+        return mapper.toDomain(savedEntity);
 
     }
 
     @Override
-    public boolean delete(Long id) {
+    public boolean delete(UUID id) {
 
-        return db.removeIf(e -> e.getId().equals(id));
+        if (repo.existsById(id)){
+
+            repo.deleteById(id);
+            return true;
+
+        }
+
+        return false;
 
     }
 

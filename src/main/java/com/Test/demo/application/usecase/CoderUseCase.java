@@ -6,6 +6,7 @@ import com.Test.demo.domain.Coder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class CoderUseCase implements CoderInPort {
@@ -33,21 +34,21 @@ public class CoderUseCase implements CoderInPort {
     }
 
     @Override
-    public Coder getById (Long id){
+    public Coder getById (UUID id){
 
         return coderOutPort.getById(id);
 
     }
 
     @Override
-    public boolean delete (Long id){
+    public boolean delete (UUID id){
 
         return coderOutPort.delete(id);
 
     }
 
     @Override
-    public Coder edit (Long id, Coder coder){
+    public Coder edit (UUID id, Coder coder){
 
         Coder exist = coderOutPort.getById(id);
 

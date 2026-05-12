@@ -5,6 +5,7 @@ import com.Test.demo.domain.Coder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/coders")
@@ -26,7 +27,7 @@ public class CoderInAdapter {
     }
 
     @GetMapping("/{id}")
-    public Coder getById(@PathVariable Long id){
+    public Coder getById(@PathVariable UUID id){
 
         return coderInPort.getById(id);
 
@@ -40,14 +41,14 @@ public class CoderInAdapter {
     }
 
     @DeleteMapping("/{id}")
-    public boolean delete (@PathVariable Long id){
+    public boolean delete (@PathVariable UUID id){
 
         return coderInPort.delete(id);
 
     }
 
     @PutMapping("/{id}")
-    public Coder edit (@PathVariable Long id, @RequestBody Coder coder){
+    public Coder edit (@PathVariable UUID id, @RequestBody Coder coder){
 
         return coderInPort.edit(id, coder);
 

@@ -1,4 +1,4 @@
-package com.Test.demo.infrastructure;
+package com.Test.demo;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
