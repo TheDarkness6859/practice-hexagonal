@@ -2,6 +2,8 @@ package com.Test.demo.infrastructure.adapter.in;
 
 import com.Test.demo.application.port.in.CoderInPort;
 import com.Test.demo.domain.Coder;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,37 +22,69 @@ public class CoderInAdapter {
     }
 
     @GetMapping("/getAll")
-    public List<Coder> getAll () {
+    public ResponseEntity<List<Coder>> getAll () {
 
-        return coderInPort.getAll();
+        return ResponseEntity.ok(coderInPort.getAll());
 
     }
 
     @GetMapping("/{id}")
-    public Coder getById(@PathVariable UUID id){
+    public ResponseEntity<Coder> getById(@PathVariable UUID id){
 
-        return coderInPort.getById(id);
+        Coder coder = coderInPort.getById(id);
+
+        if (coder != null){
+
+            return ResponseEntity.ok(coder);
+
+        }else {
+
+            return ResponseEntity.notFound().build();
+
+        }
 
     }
 
     @PostMapping
-    public Coder save (@RequestBody Coder coder){
+    public ResponseEntity<Coder> save (@RequestBody Coder coder){
 
-        return coderInPort.save(coder);
+        Coder savedCoder = coderInPort.save(coder);
+
+        return new ResponseEntity<>(savedCoder, HttpStatus.CREATED);
 
     }
 
     @DeleteMapping("/{id}")
-    public boolean delete (@PathVariable UUID id){
+    public ResponseEntity<Void> delete (@PathVariable UUID id){
 
-        return coderInPort.delete(id);
+        boolean deletedCoder = coderInPort.delete(id);
+
+        if (deletedCoder){
+
+            return ResponseEntity.noContent().build();
+
+        }else {
+
+            return ResponseEntity.notFound().build();
+
+        }
 
     }
 
     @PutMapping("/{id}")
-    public Coder edit (@PathVariable UUID id, @RequestBody Coder coder){
+    public ResponseEntity<Coder> edit (@PathVariable UUID id, @RequestBody Coder coder){
 
-        return coderInPort.edit(id, coder);
+        Coder editCoder = coderInPort.edit(id, coder);
+
+        if (editCoder != null){
+
+            return ResponseEntity.noContent().build();
+
+        }else {
+
+            return ResponseEntity.notFound().build();
+
+        }
 
     }
 }
