@@ -8,6 +8,8 @@ public interface CoderInPort {
 
     List<Coder> getAll ();
 
+    Coder getById (Long id);
+
     Coder save (Coder coder);
 
     boolean delete (Long id);
