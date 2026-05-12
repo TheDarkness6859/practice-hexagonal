@@ -33,6 +33,13 @@ public class CoderUseCase implements CoderInPort {
     }
 
     @Override
+    public Coder getById (Long id){
+
+        return coderOutPort.getById(id);
+
+    }
+
+    @Override
     public boolean delete (Long id){
 
         return coderOutPort.delete(id);
