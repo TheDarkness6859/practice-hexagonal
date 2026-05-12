@@ -25,6 +25,13 @@ public class CoderInAdapter {
 
     }
 
+    @GetMapping("/{id}")
+    public Coder getById(@PathVariable Long id){
+
+        return coderInPort.getById(id);
+
+    }
+
     @PostMapping
     public Coder save (@RequestBody Coder coder){
 
