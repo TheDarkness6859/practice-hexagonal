@@ -21,7 +21,7 @@ public class CoderInAdapter {
 
     }
 
-    @GetMapping("/getAll")
+    @GetMapping
     public ResponseEntity<List<Coder>> getAll () {
 
         return ResponseEntity.ok(coderInPort.getAll());
