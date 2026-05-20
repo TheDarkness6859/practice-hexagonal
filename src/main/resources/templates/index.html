@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Coders Dashboard</title>
+        <link rel="stylesheet" th:href="@{/css/style.css}">
+    </head>
+    <body>
+
+        <div th:replace="~{layout/components :: navbar}"></div>
+
+        <input type="checkbox" id="toggle-form" th:checked="${forceForm}" />
+
+        <div class="modal-container">
+            <h3 th:text="${coderForm.id != null} ? 'Edit Coder' : 'Create Coder'">Form</h3>
+
+            <form th:action="@{/web/coders/save}" th:object="${coderForm}" method="GET">
+                <input type="hidden" th:field="*{id}" />
+
+                <div class="form-group">
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" th:field="*{name}" required placeholder="Coder's name..." />
+                </div>
+
+                <div class="form-group">
+                    <label for="clan">Clan:</label>
+                    <input type="text" id="clan" th:field="*{clan}" required placeholder="Clan name..." />
+                </div>
+
+                <button type="submit" class="btn btn-primary">Save Coder</button>
+                <label for="toggle-form" class="btn btn-secondary" style="margin-left: 10px;">Cancel</label>
+            </form>
+        </div>
+
+        <div th:if="${#lists.isEmpty(coders)}">
+            <p class="Empty">We don't have coders yet, sorry!</p>
+        </div>
+
+        <div class="cards-grid" th:unless="${#lists.isEmpty(coders)}">
+
+            <div class="coder-card" th:each="coder : ${coders}">
+
+                <div class="coder-info">
+                    <p class="coder-id"><strong>ID:</strong> <span th:text="${coder.id}"></span></p>
+                    <p><strong>Name:</strong> <span th:text="${coder.name}"></span></p>
+                    <p><strong>Clan:</strong> <span th:text="${coder.clan}"></span></p>
+                </div>
+
+                <div class="card-actions">
+                    <a th:href="@{/web/coders/edit/{id}(id=${coder.id})}" class="btn btn-secondary">Edit</a>
+
+                    <a th:href="@{/web/coders/delete/{id}(id=${coder.id})}" class="btn btn-danger"
+                       onclick="return confirm('Are you sure you want to delete this coder?');">Delete</a>
+                </div>
+
+            </div>
+
+        </div>
+
+    <div th:replace="~{layout/components :: footer}"></div>
+
+    </body>
+</html>

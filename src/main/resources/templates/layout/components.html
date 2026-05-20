@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+    <body>
+
+        <header th:fragment="navbar" class="header-container">
+            <h1>Coders Admin</h1>
+
+            <nav style="display: flex; gap: 15px; align-items: center;">
+                <a th:href="@{/api/coders}" class="btn btn-secondary">Api JSON</a>
+
+                <label for="toggle-form" class="btn btn-primary" style="margin: 0;">+ Add New Coder</label>
+            </nav>
+        </header>
+
+
+        <footer th:fragment="footer" style="text-align: center; padding: 20px; color: #858585; margin-top: 40px; border-top: 1px solid #333; font-size: 14px;">
+            <p>&copy; <span th:text="${#dates.format(#dates.createNow(), 'yyyy')}">2026</span> TheDarkness - Junior Dev Management System</p>
+        </footer>
+
+    </body>
+</html>
