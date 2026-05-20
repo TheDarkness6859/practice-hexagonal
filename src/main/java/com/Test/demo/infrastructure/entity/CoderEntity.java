@@ -1,7 +1,5 @@
 package com.Test.demo.infrastructure.entity;
 
-import jakarta.annotation.Generated;
-import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import lombok.*;
 
