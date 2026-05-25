@@ -13,6 +13,6 @@ public class CoderSharedDto {
 
     private UUID id;
     private String name;
-    private String clan;
+    private Boolean active;
 
 }
