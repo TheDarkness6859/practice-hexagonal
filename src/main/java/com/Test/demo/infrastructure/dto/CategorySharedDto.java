@@ -1,6 +1,5 @@
 package com.Test.demo.infrastructure.dto;
 
-import com.Test.demo.domain.Coder;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
