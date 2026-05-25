@@ -2,11 +2,14 @@ package com.Test.demo.infrastructure.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.SQLRestriction;
 
+import java.util.Set;
 import java.util.UUID;
 
 @Entity
 @Table(name = "coders")
+@SQLRestriction("acitve = true")
 @Getter
 @Setter
 @AllArgsConstructor
@@ -21,7 +24,18 @@ public class CoderEntity {
     @Column(nullable = false)
     private String name;
 
-    @Column(nullable = false)
-    private String clan;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "clan_id", nullable = false)
+    private ClanEntity clan;
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "coders_categories",
+            joinColumns = @JoinColumn(name = "coder_id"),
+            inverseJoinColumns = @JoinColumn(name = "category_id")
+    )
+    private Set<CategoryEntity> categories;
+
+    private Boolean active;
 
 }
