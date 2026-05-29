@@ -11,16 +11,14 @@ import java.util.List;
 import java.util.UUID;
 
 @Repository
-public class CoderOutAdapter implements CoderOutPort {
+public class CoderOutAdapter implements CoderOutPort{
 
-    private final DatabaseRepo repo;
+    private final DatabaseRepo<CoderEntity> repo;
     private final CoderMapper mapper;
 
-    public CoderOutAdapter (CoderMapper mapper, DatabaseRepo repo){
-
+    public CoderOutAdapter (CoderMapper mapper, DatabaseRepo<CoderEntity> repo){
         this.mapper = mapper;
         this.repo = repo;
-
     }
 
     @Override
