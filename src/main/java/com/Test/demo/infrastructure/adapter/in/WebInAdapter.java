@@ -1,6 +1,8 @@
 package com.Test.demo.infrastructure.adapter.in;
 
+import com.Test.demo.application.port.in.ClanInPort;
 import com.Test.demo.application.port.in.CoderInPort;
+import com.Test.demo.domain.Clan;
 import com.Test.demo.domain.Coder;
 import com.Test.demo.infrastructure.dto.CoderSharedDto;
 import org.springframework.stereotype.Controller;
@@ -17,10 +19,12 @@ import java.util.UUID;
 public class WebInAdapter {
 
     private final CoderInPort coderInPort;
+    private final ClanInPort clanInPort;
 
-    public WebInAdapter(CoderInPort coderInPort){
+    public WebInAdapter(CoderInPort coderInPort, ClanInPort clanInPort){
 
         this.coderInPort = coderInPort;
+        this.clanInPort = clanInPort;
 
     }
 
@@ -44,14 +48,15 @@ public class WebInAdapter {
     public String createCoder (@ModelAttribute("coderForm") CoderSharedDto dto){
 
         Coder coderDomain;
+        Clan clan = clanInPort.getById(dto.clan());
 
-        if (dto.getId() != null && !dto.getId().toString().trim().isEmpty()){
+        if (dto.id() != null && !dto.id().toString().trim().isEmpty()){
 
-            coderDomain = new Coder (dto.getId(), dto.getName(), dto.getClan());
+            coderDomain = new Coder (dto.id(), dto.name(), clan);
 
         }else {
 
-            coderDomain = new Coder (null, dto.getName(), dto.getClan());
+            coderDomain = new Coder (null, dto.name(), clan);
 
         }
 
@@ -66,7 +71,7 @@ public class WebInAdapter {
 
         Coder coderDomain = coderInPort.getById(id);
 
-        CoderSharedDto dto = new CoderSharedDto(coderDomain.getId(), coderDomain.getName(), coderDomain.getClan());
+        CoderSharedDto dto = new CoderSharedDto(coderDomain.getId(), coderDomain.getName(), coderDomain.getActive() ,coderDomain.getClan().getId());
 
         model.addAttribute("coders", coderInPort.getAll());
         model.addAttribute("coderForm", dto);
