@@ -8,6 +8,9 @@ import com.Test.demo.infrastructure.dto.ClanSharedDto;
 import com.Test.demo.infrastructure.dto.CoderSharedDto;
 import org.springframework.stereotype.Component;
 
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Component
@@ -18,53 +21,44 @@ public class DtoMapper {
         return new CoderSharedDto(
                 domain.getId(),
                 domain.getName(),
-                domain.getActive()
+                domain.getActive(),
+                domain.getClan() != null ? domain.getClan().getId() : null
         );
 
     }
 
     public ClanSharedDto toClanDto (Clan domain){
 
-        ClanSharedDto dto = new ClanSharedDto();
-
-        dto.setId(domain.getId());
-        dto.setName(domain.getName());
-        dto.setDescription(domain.getDescription());
+        List<CoderSharedDto> coders = List.of();
 
         if (domain.getCoders() != null){
 
-            dto.setCoders(
-                    domain.getCoders()
+            coders = domain.getCoders()
                             .stream()
-                            .map(this::toSharedDto)
-                            .collect(Collectors.toList()))
+                            .map(this::toSharedDto).toList()
             ;
 
         }
 
-        return dto;
+        return new ClanSharedDto(domain.getId(), domain.getName(), domain.getDescription(), coders);
 
     }
 
     public CategorySharedDto toCategoryDto (Category domain){
 
-        CategorySharedDto dto = new CategorySharedDto();
-
-        dto.setId(domain.getId());
-        dto.setName(domain.getName());
+        Set<CoderSharedDto> coders = new HashSet<>();
 
         if (domain.getCoders() != null){
 
-            dto.setCoders(
-                    domain.getCoders()
-                            .stream()
-                            .map(this::toSharedDto)
-                            .collect(Collectors.toSet()))
+            coders = domain.getCoders()
+                    .stream()
+                    .map(this::toSharedDto)
+                    .collect(Collectors.toSet())
             ;
 
         }
 
-        return dto;
+        return new CategorySharedDto(domain.getId(), domain.getName(), coders);
 
     }
 
