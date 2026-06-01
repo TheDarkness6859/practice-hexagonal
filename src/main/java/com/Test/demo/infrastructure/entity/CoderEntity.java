@@ -9,7 +9,7 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "coders")
-@SQLRestriction("acitve = true")
+@SQLRestriction("active = true")
 @Getter
 @Setter
 @AllArgsConstructor
