@@ -2,7 +2,7 @@ package com.Test.demo.infrastructure.adapter.out;
 
 import com.Test.demo.application.port.out.CategoryOutPort;
 import com.Test.demo.domain.Category;
-import com.Test.demo.infrastructure.adapter.persistance.DatabaseRepo;
+import com.Test.demo.infrastructure.adapter.persistance.CategoryDatabaseRepo;
 import com.Test.demo.infrastructure.entity.CategoryEntity;
 import com.Test.demo.infrastructure.mapper.CategoryMapper;
 import org.springframework.stereotype.Repository;
@@ -13,10 +13,10 @@ import java.util.UUID;
 @Repository
 public class CategoryOutAdapter implements CategoryOutPort {
 
-    private final DatabaseRepo<CategoryEntity> repo;
+    private final CategoryDatabaseRepo repo;
     private final CategoryMapper mapper;
 
-    public CategoryOutAdapter (DatabaseRepo<CategoryEntity> repo, CategoryMapper mapper){
+    public CategoryOutAdapter (CategoryDatabaseRepo repo, CategoryMapper mapper){
         this.mapper = mapper;
         this.repo = repo;
     }

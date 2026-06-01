@@ -2,7 +2,7 @@ package com.Test.demo.infrastructure.adapter.out;
 
 import com.Test.demo.application.port.out.CoderOutPort;
 import com.Test.demo.domain.Coder;
-import com.Test.demo.infrastructure.adapter.persistance.DatabaseRepo;
+import com.Test.demo.infrastructure.adapter.persistance.CoderDatabaseRepo;
 import com.Test.demo.infrastructure.entity.CoderEntity;
 import com.Test.demo.infrastructure.mapper.CoderMapper;
 import org.springframework.stereotype.Repository;
@@ -13,10 +13,10 @@ import java.util.UUID;
 @Repository
 public class CoderOutAdapter implements CoderOutPort{
 
-    private final DatabaseRepo<CoderEntity> repo;
+    private final CoderDatabaseRepo repo;
     private final CoderMapper mapper;
 
-    public CoderOutAdapter (CoderMapper mapper, DatabaseRepo<CoderEntity> repo){
+    public CoderOutAdapter (CoderMapper mapper, CoderDatabaseRepo repo){
         this.mapper = mapper;
         this.repo = repo;
     }

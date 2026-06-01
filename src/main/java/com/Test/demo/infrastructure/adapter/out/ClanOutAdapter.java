@@ -2,19 +2,21 @@ package com.Test.demo.infrastructure.adapter.out;
 
 import com.Test.demo.application.port.out.ClanOutPort;
 import com.Test.demo.domain.Clan;
-import com.Test.demo.infrastructure.adapter.persistance.DatabaseRepo;
+import com.Test.demo.infrastructure.adapter.persistance.ClanDatabaseRepo;
 import com.Test.demo.infrastructure.entity.ClanEntity;
 import com.Test.demo.infrastructure.mapper.ClanMapper;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.UUID;
 
+@Repository
 public class ClanOutAdapter implements ClanOutPort {
 
-    private final DatabaseRepo<ClanEntity> repo;
+    private final ClanDatabaseRepo repo;
     private final ClanMapper mapper;
 
-    public ClanOutAdapter (DatabaseRepo<ClanEntity> repo, ClanMapper mapper){
+    public ClanOutAdapter (ClanDatabaseRepo repo, ClanMapper mapper){
         this.repo = repo;
         this.mapper = mapper;
     }
